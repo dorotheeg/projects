@@ -1,0 +1,195 @@
+
+let xspacing = 16; // Distance between each horizontal location
+let w; // Width of entire wave
+let theta = 0.0; // Start angle at 0
+let amplitude = 50.0; // Height of wave
+let period = 500.0; // How many pixels before the wave repeats
+let dx; // Value for incrementing x
+let yvalues; // Using an array to store height values for the wave
+let beginX = 20.0; // Initial x-coordinate
+let beginY = 10.0; // Initial y-coordinate
+let endX = 570.0; // Final x-coordinate
+let endY = 320.0; // Final y-coordinate
+let distX; // X-axis distance to move
+let distY; // Y-axis distance to move
+let exponent = 4; // Determines the curve
+let x = 0.0; // Current x-coordinate
+let y = 0.0; // Current y-coordinate
+let step = 0.01; // Size of each step along the path
+let pct = 0.0; // Percentage traveled (0.0 to 1.0)
+let change = 0;
+let a;
+
+
+// function setup() {
+//   createCanvas(720, 400);
+//   noStroke();
+//   distX = endX - beginX;
+//   distY = endY - beginY;
+// }
+
+// function draw() {
+//   fill(0, 2);
+//   rect(0, 0, width, height);
+//   pct += step;
+//   if (pct < 1.0) {
+//     x = beginX + pct * distX;
+//     y = beginY + pow(pct, exponent) * distY;
+//   }
+//   fill(255);
+//   ellipse(x, y, 20, 20);
+// }
+
+
+function setup() {
+  createCanvas(800, 500);
+  w = width + 16;
+  dx = (TWO_PI / period) * xspacing;
+  yvalues = new Array(floor(w / xspacing));
+  a = 720 / 2;
+}
+
+function draw() {
+  background(135,206,250);
+  ellipse(a,300+(20*x), 20, 20);
+  a = a + 01;
+  if (a < 0) {
+    a = height;
+  }
+  
+  calcWave();
+  renderWave();
+  //temp = ellipse(230 + x , height + (.5 * yvalues[x])-190, 20, 20);
+  // if (mouseIsPressed) {
+  //   fill(0);
+
+  // } else {
+  //   noFill()
+  // }
+  // ellipse(250 + x, height + (.5 * yvalues[x])-190, 20, 20);
+}
+  // change = change + .8;
+  // translate(change, height / 2 - dim / 2);
+  // fill(255);
+  // rect(20, 20, 20, 20);
+//   function mousePressed() {
+//   rect(mouseX, mouseY, 33, 33);
+// }
+
+
+function calcWave() {
+  // Increment theta (try different values for
+  // 'angular velocity' here)
+  theta += 0.01;
+
+  // For every x value, calculate a y value with sine function
+  let x = theta;
+  for (let i = 0; i < yvalues.length; i++) {
+    yvalues[i] = sin(x) * amplitude;
+    x += dx;
+  }
+}
+
+function renderWave() {
+  // A simple way to draw the wave with an ellipse at each location
+  	//boat
+
+    for (let x =  yvalues.length -1; x < yvalues.length; x++) {
+    noStroke();
+  	fill(139, 69, 19); 
+  	//fill(255); 
+  	rect(20 + x , height + (.5 * yvalues[x])-210, 280, 150,0, 0, 55,55);
+	
+  }
+  //mast
+  for (let x =  yvalues.length -1; x < yvalues.length; x++) {
+    noStroke();
+  	fill(139, 69, 19); 
+  	//fill(255); 
+  	rect(150 + x , height + (.5 * yvalues[x])-400, 20, 300);
+	
+  }
+  //sail
+  for (let x =  yvalues.length -1; x < yvalues.length; x++) {
+    noStroke();
+  	fill(218,112,214); 
+  	//fill(255); 
+  	triangle(160 + x , height + (.5 * yvalues[x])-250, 160 + x , (.5 * yvalues[x])+80, 25, 155);
+	
+  }
+    //_______________________________________________________________________________
+//BOAT TWOOOOO
+
+   	for (let x =   yvalues.length -10; x < yvalues.length-9; x++) {
+    noStroke();
+  	fill(160,82,45); 
+  	//fill(255); 
+  	rect(470 + x , height + (.5 * yvalues[x])-210, 250, 150,0, 0, 55,55);
+	
+  }
+  //mast TWO
+  for (let x =  yvalues.length -10; x < yvalues.length-9; x++) {
+    noStroke();
+  	fill(160,82,45); 
+  	//fill(255); 
+  	rect(600 + x , height + (.5 * yvalues[x])-400, 20, 300);
+	
+  }
+  //sail TWO
+  for (let x =   yvalues.length -10; x < yvalues.length-9; x++) {
+    noStroke();
+  	fill(0,0,0); 
+  	//fill(255); 
+  	triangle(610 + x , height + (.5 * yvalues[x])-250, 610 + x , (.5 * yvalues[x])+80, 500, 175);
+	
+  }
+
+  //_________________________________________________
+  //Water
+
+
+  //main curve
+  for (let x = 0; x < yvalues.length; x++) {
+  	noStroke();
+  	fill(0,0,129); 
+    ellipse(x * xspacing, height + yvalues[x], 200, 200);
+	
+  }
+  //ripple
+  for (let x = 0; x < yvalues.length; x++) {
+    noStroke();
+  	fill(25,25,112); 
+  	//fill(255); 
+  	ellipse(x * xspacing , height + yvalues[x]-100, 50, 50);
+	
+  }
+
+  for (let x = yvalues.length - 1; x < yvalues.length; x++) {
+    noStroke();
+  	fill(0,0,0); 
+  	//fill(255); 
+  	//ellipse(230 + x , height + (.5 * yvalues[x])-190, 20, 20);
+    
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"></script>
+    <script src="sketch.js"></script>
+  </head>
+  <body>
+  </body>
+</html>
